@@ -11,8 +11,7 @@ const phrases = [
   "I'm gonna cry ...",
   "You're breaking my heart",
   "No :(",
-  "Rawr xD~",
-  "Please say yes"
+  "Please say yes",
 ]
 const count = ref(0)
 const messageToShow = computed(() => {
