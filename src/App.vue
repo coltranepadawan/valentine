@@ -5,8 +5,7 @@ const phrases = [
   "Are you sure?",
   "Really sure?",
   "Really, really sure?",
-  "Say it ain't so",
-  "Stop playing!",
+  "Really, really, REALLY sure?",
   "Please don't do this to me",
   "I'm gonna cry ...",
   "You're breaking my heart",
@@ -17,6 +16,7 @@ const count = ref(0)
 const messageToShow = computed(() => {
   return phrases[count.value % phrases.length]
 })
+const valentineName = import.meta.env.VITE_VALENTINE_NAME
 const yesPressed = ref(false)
 const yesButtonStyle = computed(() => {
   return `font-size: ${count.value * 20 + 16}px`
@@ -31,7 +31,7 @@ const yesButtonStyle = computed(() => {
     </template>
     <template v-else>
       <img height="200" alt="bear with hearts" src="https://gifdb.com/images/high/cute-love-bear-roses-ou7zho5oosxnpo6k.gif"/>
-      <h1 class="text-4xl my-4 text-center">Alejandra, will you be my Valentine?</h1>
+      <h1 class="text-4xl my-4 text-center">{{valentineName}}, will you be my Valentine?</h1>
       <div class="flex flex-wrap flex-col md:flex-row gap-4 items-center justify-center">
           <button class="btn btn-success" @click="yesPressed = true" :style="yesButtonStyle">Yes</button>
           <button class="btn btn-danger" @click="count++" >{{ messageToShow }}</button>
