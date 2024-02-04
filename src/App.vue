@@ -9,7 +9,6 @@ const phrases = [
   "Please don't do this to me",
   "I'm gonna cry ...",
   "You're breaking my heart",
-  "No :(",
   "Please say yes",
 ]
 const count = ref(0)
@@ -33,8 +32,8 @@ const yesButtonStyle = computed(() => {
       <img height="200" alt="bear with hearts" src="https://gifdb.com/images/high/cute-love-bear-roses-ou7zho5oosxnpo6k.gif"/>
       <h1 class="text-4xl my-4 text-center">{{valentineName}}, will you be my Valentine?</h1>
       <div class="flex flex-wrap flex-col md:flex-row gap-4 items-center justify-center">
-          <button class="btn btn-success" @click="yesPressed = true" :style="yesButtonStyle">Yes</button>
-          <button class="btn btn-danger" @click="count++" >{{ messageToShow }}</button>
+          <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" @click="yesPressed = true" :style="yesButtonStyle">Yes</button>
+          <button class=" bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" @click="count++" >{{ messageToShow }}</button>
         </div>
       </template>
     </div>
