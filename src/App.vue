@@ -1,5 +1,6 @@
 <script setup>
-import { ref, computed}  from 'vue'
+import { ref, computed, onMounted}  from 'vue'
+import song from './assets/song.mp3'
 const phrases = [
   "No",
   "Are you sure?",
@@ -9,30 +10,55 @@ const phrases = [
   "Please don't do this to me",
   "I'm gonna cry ...",
   "You're breaking my heart",
-  "Please say yes",
+  "Say yes or im taking FIFI",
+  "Crispy, click the yes button already!"
 ]
 const count = ref(0)
 const messageToShow = computed(() => {
   return phrases[count.value % phrases.length]
 })
-const valentineName = import.meta.env.VITE_VALENTINE_NAME
+const valentineName = 'Crispy'
 const yesPressed = ref(false)
+const loaded = ref(false)
 const yesButtonStyle = computed(() => {
-  return `font-size: ${count.value * 20 + 16}px`
+  return `font-size: ${count.value * 40 + 16}px`
 })
+
+// yes button clicked
+const yesClicked = () => {
+  yesPressed.value = true;
+}
+
+// Function to play the audio
+const playAudio = () => {
+  const audio = new Audio(song)
+  audio.play()
+  loaded.value = false
+}
+
+onMounted(() => {
+  loaded.value = true
+})
+
+
 </script>
 
 <template>
   <div class="valentine-container">
-    <template v-if="yesPressed">
-      <img height="200" alt="bear kiss bear kissing" src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif"/>
-      <h1 class="text-4xl my-4 text-center">Yay!!!!!</h1>
+    <template v-if="loaded">
+      <h1 class="text-4xl my-4 text-center">I have  very important question for you!</h1>
+      <button  class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" @click="playAudio()">Okay</button>
     </template>
-    <template v-else>
-      <img height="200" alt="bear with hearts" src="https://gifdb.com/images/high/cute-love-bear-roses-ou7zho5oosxnpo6k.gif"/>
+    <template v-if="yesPressed && !loaded">
+      <img height="200" alt="bear kiss bear kissing" class="rounded" src="https://tenor.com/view/snoopy-hug-love-gif-15847995.gif"/>
+      <h1 class="text-5xl my-4 text-center">Yay!!!!!</h1>
+      <h2 class="text-3xl my-4 text-center">Happy Valentine's Day, {{valentineName}}!</h2>
+    </template>
+    <template v-else-if="!yesPressed && !loaded">
+      <img height="200" alt="bear with hearts" class="rounded" src="https://tenor.com/view/happy-valentines-day-love-you-lots-snoopy-and-woodstock-gif-13457459.gif"/>
       <h1 class="text-4xl my-4 text-center">{{valentineName}}, will you be my Valentine?</h1>
       <div class="flex flex-wrap flex-col md:flex-row gap-4 items-center justify-center">
-          <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" @click="yesPressed = true" :style="yesButtonStyle">Yes</button>
+          <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" @click="yesClicked()" :style="yesButtonStyle">Yes</button>
           <button class=" bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" @click="count++" >{{ messageToShow }}</button>
         </div>
       </template>
@@ -47,6 +73,7 @@ const yesButtonStyle = computed(() => {
   justify-content: center;
   min-height: 100vh;
   margin-top: 16px;
+  background-color: #fa5e8d;
 }
 
 </style>
